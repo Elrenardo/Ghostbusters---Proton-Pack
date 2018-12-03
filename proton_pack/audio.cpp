@@ -1,79 +1,48 @@
-//-------------------------------------------------------
-//-------------------------------------------------------
-/*
-NAME    : Main Proton pack
-BY      : Teysseire Guillaume
-TIME    : 03/12/2018
-UPDA    : 03/12/2018
-WEB     : studiogoupil.fr
-VERSION : 1.00
-*/
-//-------------------------------------------------------
-//-------------------------------------------------------
-//Lib
-
-#include <GPTaskManager.h>
-#include "Arduino.h"
-#include "SoftwareSerial.h"
-#include "DFRobotDFPlayerMini.h"
-
-//-------------------------------------------------------
-//-------------------------------------------------------
-//-------------------------------------------------------
-//-------------------------------------------------------
-//projet .h
-
-#include "define.h"
 #include "audio.h"
-#include "cyclotron.h"
-#include "powercell.h"
-#include "protongun.h"
-#include "fumee.h"
 
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
-//Global Main Var
-
-//Audio
-Audio *Proton_audio;
-//Power Cell
-PowerCell *Proton_powercell;
-//Cyclotron
-Cyclotron *Proton_cyclotron;
-//Proton Gun
-ProtonGun *Proton_protongun;
-//Fumee
-Fumee *Proton_fumee;
-
-
-
-//-------------------------------------------------------
-//-------------------------------------------------------
-//-------------------------------------------------------
-//-------------------------------------------------------
-//Initialisation Arduino
-void setup()
+//Constructeur de Audio
+Audio::Audio()
 {
+  this->mySoftwareSerial =  new SoftwareSerial( AUDIO_RX, AUDIO_TX );// RX, TX port
+  this->myDFPlayer = new DFRobotDFPlayerMini();
+
+  //init dialogue carte DFplayerMini
+  this->mySoftwareSerial->begin( AUDIO_PORT_INIT );
+
   #ifdef PROTON_DEBUG
-    Serial.begin( PROTON_DEBUG_SERIAL );
+    Serial.println();
+    Serial.println(F("DFRobot DFPlayer Mini Demo"));
+    Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
   #endif
+  
+  if (!this->myDFPlayer->begin(*this->mySoftwareSerial))//Use softwareSerial to communicate with mp3.
+  {
+    #ifdef PROTON_DEBUG
+      Serial.println(F("Unable to begin:"));
+      Serial.println(F("1.Please recheck the connection!"));
+      Serial.println(F("2.Please insert the SD card!"));
+    #endif
+    while(true);
+  }
+  #ifdef PROTON_DEBUG
+    Serial.println(F("DFPlayer Mini online."));
+  #endif
+  
+  this->myDFPlayer->volume( AUDIO_VOLUME );  //Set volume value. From 0 to 30
+  //this->myDFPlayer->play(9);  //Play the first mp3
+}
 
-  //Création du gestionnaire Audio
-  Proton_audio = new Audio();
 
-  //Création Gestionnaire Power Cell
-  Proton_powercell = new PowerCell();
-
-  //Création Gestionnaire du Cyclotron
-  Proton_cyclotron = new Cyclotron();
-
-  //Création Gestionnaire du Proton Gun
-  Proton_protongun = new ProtonGun();
-
-  //Création Gestionnaire de Fumée
-  Proton_fumee = new Fumee();
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+void Audio::OnPack()
+{
   
 }
 
@@ -83,8 +52,32 @@ void setup()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
-//Boucle frame Arduino
-void loop()
+void Audio::OffPack()
 {
-
+  
 }
+
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+void Audio::OnGun()
+{
+  
+}
+
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+void Audio::OffGun()
+{
+  
+}
+
+
+
