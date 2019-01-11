@@ -8,8 +8,6 @@
 //Constructeur
 PowerCell::PowerCell()
 {
-  this->compte = 0;
-
   //Set Pin Mode
   pinMode( POWERCELL_01, OUTPUT );
   pinMode( POWERCELL_02, OUTPUT );
@@ -28,7 +26,10 @@ PowerCell::PowerCell()
   pinMode( POWERCELL_15, OUTPUT );
 
   //Activation
-  this->on();
+  if(digitalRead( PROTONGUN_ACTIVATE_PACK_SWITCH ))
+    this->on();
+  else
+   this->off();
 }
 
 

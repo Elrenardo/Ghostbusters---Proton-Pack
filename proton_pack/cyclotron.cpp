@@ -7,14 +7,11 @@
 //Constructeur
 Cyclotron::Cyclotron()
 {
-  //Desactiver le cyclotron
-  this->etat = false;
-  
-  //reset led
-  this->resetLight();
-
   //Activation
-  this->on();
+  if(digitalRead( PROTONGUN_ACTIVATE_PACK_SWITCH ))
+    this->on();
+  else
+   this->off();
 }
 
 

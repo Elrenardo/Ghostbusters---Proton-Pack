@@ -8,19 +8,38 @@
 //Constructeur
 ProtonGun::ProtonGun()
 {
-  this->etat = true;
-  this->etatTir = false;
-  
   //Led Fixe
   pinMode( PROTONGUN_REDLED_STATIC   , OUTPUT );
   pinMode( PROTONGUN_ORANGELED_STATIC, OUTPUT );
   pinMode( PROTONGUN_ORANGEGUN_STATIC, OUTPUT );
   pinMode( PROTONGUN_VENTLED         , OUTPUT );
-  
-  this->etatVent = true;
-  digitalWrite( PROTONGUN_VENTLED, HIGH );
 
-  this->on();
+  //Switch
+  pinMode( PROTONGUN_ACTIVATE_GUN_SWITCH , INPUT );
+  pinMode( PROTONGUN_ACTIVATE_PACK_SWITCH, INPUT );
+  pinMode( PROTONGUN_ACTIVATE_SWITCH     , INPUT );
+  pinMode( PROTONGUN_INTENSITY_BUTTON    , INPUT );
+  pinMode( PROTONGUN_REDGUN_BUTTON       , INPUT );
+  
+
+  //Init Vent
+  if(digitalRead( PROTONGUN_ACTIVATE_PACK_SWITCH ))
+  {
+    this->etatVent = true;
+    digitalWrite( PROTONGUN_VENTLED, HIGH );
+  }
+  else
+  {
+    this->etatVent = false;
+    digitalWrite( PROTONGUN_VENTLED, LOW );
+  }
+
+
+  //Init Gun
+  if(digitalRead( PROTONGUN_ACTIVATE_GUN_SWITCH ))
+    this->on();
+  else
+    this->off();
 }
 
 

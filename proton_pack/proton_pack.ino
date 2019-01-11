@@ -65,14 +65,14 @@ void setup()
   //Création du gestionnaire Audio
   Proton_audio = new Audio();
 
+  //Création Gestionnaire du Proton Gun
+  Proton_protongun = new ProtonGun();
+
   //Création Gestionnaire Power Cell
   Proton_powercell = new PowerCell();
 
   //Création Gestionnaire du Cyclotron
   Proton_cyclotron = new Cyclotron();
-
-  //Création Gestionnaire du Proton Gun
-  Proton_protongun = new ProtonGun();
 
   //Création Gestionnaire de Fumée
   Proton_fumee = new Fumee();
@@ -91,6 +91,10 @@ void setup()
   myOS->event( digitalRead, PROTONGUN_ACTIVATE_SWITCH     , eventActiveSwitch    );
   myOS->event( digitalRead, PROTONGUN_INTENSITY_BUTTON    , eventActiveIntensify );
   myOS->event( digitalRead, PROTONGUN_REDGUN_BUTTON       , eventActiveEndGun    );
+
+  //-----------------------------------------------------
+  //Inisialisation
+  
 }
 
 
