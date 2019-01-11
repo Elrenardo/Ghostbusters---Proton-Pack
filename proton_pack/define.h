@@ -25,6 +25,12 @@ VERSION : 1.00
 #define AUDIO_TX 11 //port
 #define AUDIO_PORT_INIT 9600 //Port init audio card
 
+//Audio Position list .mp3 dans la carte SD
+#define AUDIO_PLAY_PACK_ON  0
+#define AUDIO_PLAY_PACK_OFF 1
+#define AUDIO_PLAY_GUN_ON   2
+#define AUDIO_PLAY_GUN_OFF  3
+
 
 //-------------------------------------------------------
 //-------------------------------------------------------
@@ -63,16 +69,17 @@ VERSION : 1.00
 //PROTON GUN
 
 //BOX
+#define PROTONGUN_ACTIVATE_GUN_SWITCH 0
+#define PROTONGUN_ACTIVATE_PACK_SWITCH 0
 #define PROTONGUN_ACTIVATE_SWITCH 0
 #define PROTONGUN_INTENSITY_BUTTON 0
-#define PROTONGUN_MAINPOWER_SWITCH 0
-#define PROTONGUN_SEGPOWER_SWITCH 0
 
 //LED
 #define PROTONGUN_REDLED_STATIC 0
 #define PROTONGUN_ORANGELED_STATIC 0
 #define PROTONGUN_WHITELED_FLASHING 0
 #define PROTONGUN_WHITELED_BIP 0
+#define PROTONGUN_VENTLED 0
 
 //END GUN
 #define PROTONGUN_REDGUN_BUTTON 0

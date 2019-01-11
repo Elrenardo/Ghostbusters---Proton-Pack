@@ -24,8 +24,28 @@ class PowerCell
    public:
     PowerCell();
 
-    //todo
+    /*--- Activer le PowerCell --- */
+    void on();
+
+    /*--- Desactiver le PowerCell --- */
+    void off();
+
+    /*--- Switch Activation --- */
+    void activeSwitch();
+
+    /*--- Update Affichage ( callback appelé lorsque le power cell ce vide ) --- */
+    void next( void (*callback)() );
     
    private:
+    //Active
+    bool etat = true;
+    //Compte 
+    unsigned char compte = 0;
+
+    //SetLed
+    void setLed( unsigned char posi, int led );
+    //Reset compte
+    bool addCompte();
+    
     
 };

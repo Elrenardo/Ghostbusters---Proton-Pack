@@ -25,16 +25,19 @@ class Cyclotron
     Cyclotron();
 
     /*--- Activer le cyclotron --- */
-    void On();
+    void on();
 
     /*--- Desactiver le cyclotron --- */
-    void Off();
+    void off();
+
+    /*--- Switch Activation --- */
+    void activeSwitch();
 
     /*--- Activer la lumiére suivante --- */
-    void Next();
+    void next();
 
     /*--- Reset la lumiére à la premiére --- */
-    void ResetLight();
+    void resetLight();
 
    private:
    

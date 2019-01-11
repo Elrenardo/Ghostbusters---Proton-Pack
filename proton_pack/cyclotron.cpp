@@ -11,7 +11,10 @@ Cyclotron::Cyclotron()
   this->etat = false;
   
   //reset led
-  this->ResetLight();
+  this->resetLight();
+
+  //Activation
+  this->on();
 }
 
 
@@ -21,7 +24,7 @@ Cyclotron::Cyclotron()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //On
-void Cyclotron::On()
+void Cyclotron::on()
 {
   this->etat = true;
 
@@ -36,14 +39,28 @@ void Cyclotron::On()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //Off
-void Cyclotron::Off()
+void Cyclotron::off()
 {
   this->etat = false;
-  this->ResetLight();
+  this->resetLight();
 
   #ifdef PROTON_DEBUG
     Serial.println(F("Cyclotron OFF"));
   #endif
+}
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Switch
+void Cyclotron::activeSwitch()
+{
+  if(this->etat)
+    this->off();
+  else
+    this->on();
 }
 
 
@@ -53,7 +70,7 @@ void Cyclotron::Off()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //Lumiére suivante
-void Cyclotron::Next()
+void Cyclotron::next()
 {
   if( !this->etat )
     return;
@@ -98,7 +115,7 @@ void Cyclotron::Next()
 
   //Si on dépasse le max on reset
   if(this->compte == 4 )
-    this->ResetLight();
+    this->resetLight();
 }
 
 
@@ -108,7 +125,7 @@ void Cyclotron::Next()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //Reset Lumiére
-void Cyclotron::ResetLight()
+void Cyclotron::resetLight()
 {
   this->compte = 0;
 }

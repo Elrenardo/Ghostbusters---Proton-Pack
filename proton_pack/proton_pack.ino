@@ -36,6 +36,8 @@ VERSION : 1.00
 //-------------------------------------------------------
 //Global Main Var
 
+//Création Task Manager
+GPTaskManager *myOS = NULL;
 //Audio
 Audio *Proton_audio;
 //Power Cell
@@ -74,7 +76,21 @@ void setup()
 
   //Création Gestionnaire de Fumée
   Proton_fumee = new Fumee();
-  
+
+
+  //-----------------------------------------------------
+  //Création du task Manager
+  myOS = new GPTaskManager();
+
+  //Tache refresh LED
+  myOS->add( refreshLight, 134 );//2000 ms / 15 led = 133.33 ms
+
+  //Switch et Button
+  myOS->event( digitalRead, PROTONGUN_ACTIVATE_GUN_SWITCH , eventActiveGun       );
+  myOS->event( digitalRead, PROTONGUN_ACTIVATE_PACK_SWITCH, eventActivePack      );
+  myOS->event( digitalRead, PROTONGUN_ACTIVATE_SWITCH     , eventActiveSwitch    );
+  myOS->event( digitalRead, PROTONGUN_INTENSITY_BUTTON    , eventActiveIntensify );
+  myOS->event( digitalRead, PROTONGUN_REDGUN_BUTTON       , eventActiveEndGun    );
 }
 
 
@@ -86,5 +102,85 @@ void setup()
 //Boucle frame Arduino
 void loop()
 {
-
+  //Update Task Manager
+  myOS->update();
 }
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Callback Fonction d'actualisation des lumiéres
+void refreshLight()
+{
+  Proton_powercell->next( eventEndPowerCell );
+}
+//Event cycle powercell fini
+void eventEndPowerCell()
+{
+  Proton_cyclotron->next();
+  Proton_protongun->next();
+}
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Switch Active pack ( centre haut )
+void eventActiveGun()
+{
+  //Activate All light GUN, ignore Vent light
+  Proton_protongun->activeSwitch();
+}
+
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Switch Active pack ( centre bas )
+void eventActivePack()
+{
+  //Activate Cyclotron and PowerCel
+  Proton_cyclotron->activeSwitch();
+  Proton_powercell->activeSwitch();
+}
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Switch Activate ( vent light )
+void eventActiveSwitch()
+{
+  Proton_protongun->ventSwitch();
+}
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Boutin Intensify
+void eventActiveIntensify()
+{
+  //TODO
+  //Activate TIR
+  //Change Barrel sequence
+}
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Bouton rouge fun du gun
+void eventActiveEndGun()
+{
+  //?
+}
+

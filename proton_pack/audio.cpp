@@ -43,7 +43,7 @@ Audio::Audio()
 //-------------------------------------------------------
 void Audio::OnPack()
 {
-  
+  this->myDFPlayer->play( AUDIO_PLAY_PACK_ON );
 }
 
 
@@ -54,7 +54,7 @@ void Audio::OnPack()
 //-------------------------------------------------------
 void Audio::OffPack()
 {
-  
+  this->myDFPlayer->play( AUDIO_PLAY_PACK_OFF );
 }
 
 
@@ -65,7 +65,7 @@ void Audio::OffPack()
 //-------------------------------------------------------
 void Audio::OnGun()
 {
-  
+  this->myDFPlayer->play( AUDIO_PLAY_GUN_ON );
 }
 
 
@@ -76,7 +76,7 @@ void Audio::OnGun()
 //-------------------------------------------------------
 void Audio::OffGun()
 {
-  
+  this->myDFPlayer->play( AUDIO_PLAY_GUN_OFF );
 }
 
 

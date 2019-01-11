@@ -24,8 +24,30 @@ class ProtonGun
    public:
     ProtonGun();
 
-    //todo
+    /*--- Activer le ProtonGun --- */
+    void on();
+
+    /*--- Desactiver le ProtonGun --- */
+    void off();
+
+    /*--- Update --- */
+    void next();
+
+    /*--- Switch Activation --- */
+    void activeSwitch();
+
+    /*--- Switch Vent --- */
+    void ventSwitch();
+
+    /*--- Switch Tir --- */
+    void tirSwitch();
     
    private:
-    
+   
+   //Activate
+   bool etat = true;
+   //Activate vent
+   bool etatVent = true;
+   //Activation GUN
+   bool etatTir = false;
 };
