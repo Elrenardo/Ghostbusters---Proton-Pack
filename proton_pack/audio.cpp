@@ -33,7 +33,6 @@ Audio::Audio()
   #endif
   
   this->myDFPlayer->volume( AUDIO_VOLUME );  //Set volume value. From 0 to 30
-  //this->myDFPlayer->play(9);  //Play the first mp3
 }
 
 
@@ -44,6 +43,8 @@ Audio::Audio()
 void Audio::OnPack()
 {
   this->myDFPlayer->play( AUDIO_PLAY_PACK_ON );
+  delay(1000);
+  this->myDFPlayer->loop( AUDIO_PLAY_PACK_VENT );
 }
 
 
@@ -66,6 +67,8 @@ void Audio::OffPack()
 void Audio::OnGun()
 {
   this->myDFPlayer->play( AUDIO_PLAY_GUN_ON );
+  delay(1000);
+  this->myDFPlayer->loop( AUDIO_PLAY_GUN_STREAM );
 }
 
 
@@ -81,3 +84,21 @@ void Audio::OffGun()
 
 
 
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+void Audio::GunSwitch()
+{
+  this->myDFPlayer->play( AUDIO_PLAY_GUN_SWITCH );
+}
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+void Audio::FumeeVent()
+{
+  this->myDFPlayer->play( AUDIO_PLAY_FUMEE );
+}

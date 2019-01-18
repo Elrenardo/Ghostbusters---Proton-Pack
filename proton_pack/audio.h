@@ -38,10 +38,15 @@ class Audio
     /*--- Desactiver le tir --- */
     void OffGun();
 
+    /*--- Gun Switch ---*/
+    void GunSwitch();
+
+    /*--- Fumee vent ---*/
+    void FumeeVent();
+
     
   private:
     SoftwareSerial *mySoftwareSerial; // RX, TX port
     DFRobotDFPlayerMini *myDFPlayer;//Carte DFplayerMini
   
 };
-

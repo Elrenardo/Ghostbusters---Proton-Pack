@@ -33,6 +33,9 @@ class ProtonGun
     /*--- Update --- */
     void next();
 
+    /*--- Update Barrel Led --- */
+    void nextBarrel();
+
     /*--- Switch Activation --- */
     void activeSwitch();
 
@@ -41,13 +44,24 @@ class ProtonGun
 
     /*--- Switch Tir --- */
     void tirSwitch();
+
+    /*--- On Tir --- */
+    void onTir();
+
+    /*--- Off Tir --- */
+    void offTir();
     
    private:
+    void setLed( unsigned char posi, int led );
    
-   //Activate
-   bool etat = true;
-   //Activate vent
-   bool etatVent = true;
-   //Activation GUN
-   bool etatTir = false;
+     //Activate
+     bool etat = true;
+     //Activate vent
+     bool etatVent = true;
+     //Activation GUN
+     bool etatTir = false;
+     //clignotement light blanche
+     bool switchCligLight = false;
+     //Barrel compte
+     unsigned char barrel_compte = PROTONGUN_BARREL_MIN;
 };

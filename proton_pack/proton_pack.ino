@@ -91,10 +91,6 @@ void setup()
   myOS->event( digitalRead, PROTONGUN_ACTIVATE_SWITCH     , eventActiveSwitch    );
   myOS->event( digitalRead, PROTONGUN_INTENSITY_BUTTON    , eventActiveIntensify );
   myOS->event( digitalRead, PROTONGUN_REDGUN_BUTTON       , eventActiveEndGun    );
-
-  //-----------------------------------------------------
-  //Inisialisation
-  
 }
 
 
@@ -119,6 +115,7 @@ void loop()
 void refreshLight()
 {
   Proton_powercell->next( eventEndPowerCell );
+  Proton_protongun->nextBarrel();
 }
 //Event cycle powercell fini
 void eventEndPowerCell()
@@ -169,12 +166,20 @@ void eventActiveSwitch()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
-//Boutin Intensify
+//Bouton Intensify
+bool tir = false;
 void eventActiveIntensify()
 {
-  //TODO
   //Activate TIR
+  if(!tir)
+    Proton_audio->OnGun();
+  else
+    Proton_audio->OffGun();
+  //inversion
+  tir = !tir;
+  
   //Change Barrel sequence
+  Proton_protongun->tirSwitch();
 }
 
 
@@ -186,5 +191,5 @@ void eventActiveIntensify()
 void eventActiveEndGun()
 {
   //?
+  Proton_audio->GunSwitch();
 }
-

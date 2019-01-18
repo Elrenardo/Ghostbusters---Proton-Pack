@@ -13,6 +13,7 @@ ProtonGun::ProtonGun()
   pinMode( PROTONGUN_ORANGELED_STATIC, OUTPUT );
   pinMode( PROTONGUN_ORANGEGUN_STATIC, OUTPUT );
   pinMode( PROTONGUN_VENTLED         , OUTPUT );
+  pinMode( PROTONGUN_PLASMA          , OUTPUT );
 
   //Switch
   pinMode( PROTONGUN_ACTIVATE_GUN_SWITCH , INPUT );
@@ -20,8 +21,30 @@ ProtonGun::ProtonGun()
   pinMode( PROTONGUN_ACTIVATE_SWITCH     , INPUT );
   pinMode( PROTONGUN_INTENSITY_BUTTON    , INPUT );
   pinMode( PROTONGUN_REDGUN_BUTTON       , INPUT );
-  
 
+  //Barrel
+  pinMode( PROTONGUN_BARREL_01, OUTPUT );
+  pinMode( PROTONGUN_BARREL_02, OUTPUT );
+  pinMode( PROTONGUN_BARREL_03, OUTPUT );
+  pinMode( PROTONGUN_BARREL_04, OUTPUT );
+  pinMode( PROTONGUN_BARREL_05, OUTPUT );
+  pinMode( PROTONGUN_BARREL_06, OUTPUT );
+  pinMode( PROTONGUN_BARREL_07, OUTPUT );
+  pinMode( PROTONGUN_BARREL_08, OUTPUT );
+  pinMode( PROTONGUN_BARREL_09, OUTPUT );
+  pinMode( PROTONGUN_BARREL_10, OUTPUT );
+  pinMode( PROTONGUN_BARREL_11, OUTPUT );
+  pinMode( PROTONGUN_BARREL_12, OUTPUT );
+  pinMode( PROTONGUN_BARREL_13, OUTPUT );
+  pinMode( PROTONGUN_BARREL_14, OUTPUT );
+  pinMode( PROTONGUN_BARREL_15, OUTPUT );
+  pinMode( PROTONGUN_BARREL_16, OUTPUT );
+  pinMode( PROTONGUN_BARREL_17, OUTPUT );
+  pinMode( PROTONGUN_BARREL_18, OUTPUT );
+  pinMode( PROTONGUN_BARREL_19, OUTPUT );
+  pinMode( PROTONGUN_BARREL_20, OUTPUT );
+
+  
   //Init Vent
   if(digitalRead( PROTONGUN_ACTIVATE_PACK_SWITCH ))
   {
@@ -85,15 +108,79 @@ void ProtonGun::off()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
-//Off
 void ProtonGun::next()
 {
   if(!this->etat)
     return;
 
    //TODO
-   //Led clignotante
+   if(switchCligLight)
+    digitalWrite( PROTONGUN_ORANGEGUN_STATIC, LOW );
+   else
+    digitalWrite( PROTONGUN_ORANGEGUN_STATIC, HIGH );
+
+    switchCligLight = !switchCligLight;
 }
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+void ProtonGun::nextBarrel()
+{
+  if(!this->etat)
+    return;
+
+  //Set Barrel LED
+  this->setLed( 1,  PROTONGUN_BARREL_01 );
+  this->setLed( 2,  PROTONGUN_BARREL_02 );
+  this->setLed( 3,  PROTONGUN_BARREL_03 );
+  this->setLed( 4,  PROTONGUN_BARREL_04 );
+  this->setLed( 5,  PROTONGUN_BARREL_05 );
+  this->setLed( 6,  PROTONGUN_BARREL_06 );
+  this->setLed( 7,  PROTONGUN_BARREL_07 );
+  this->setLed( 8,  PROTONGUN_BARREL_08 );
+  this->setLed( 9,  PROTONGUN_BARREL_09 );
+  this->setLed( 10, PROTONGUN_BARREL_10 );
+  this->setLed( 11, PROTONGUN_BARREL_11 );
+  this->setLed( 12, PROTONGUN_BARREL_12 );
+  this->setLed( 13, PROTONGUN_BARREL_13 );
+  this->setLed( 14, PROTONGUN_BARREL_14 );
+  this->setLed( 15, PROTONGUN_BARREL_15 );
+  this->setLed( 16, PROTONGUN_BARREL_16 );
+  this->setLed( 17, PROTONGUN_BARREL_17 );
+  this->setLed( 18, PROTONGUN_BARREL_18 );
+  this->setLed( 19, PROTONGUN_BARREL_19 );
+  this->setLed( 20, PROTONGUN_BARREL_20 );
+   
+   this->barrel_compte++;
+   if(this->barrel_compte >= PROTONGUN_BARREL_MAX)
+    this->barrel_compte = PROTONGUN_BARREL_MIN;
+}
+
+
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Set Led Arduino
+void ProtonGun::setLed( unsigned char posi, int led )
+{
+  //Limite ignore
+  if(posi < PROTONGUN_BARREL_MIN )
+    return;
+  if(posi > PROTONGUN_BARREL_MAX )
+    return;
+
+  //Gestion Led
+  if( this->barrel_compte >= posi )
+    digitalWrite( led, HIGH );
+  else
+    digitalWrite( led, LOW );
+}
+
 
 
 //-------------------------------------------------------
@@ -150,12 +237,44 @@ void ProtonGun::tirSwitch()
     return;
     
   if(this->etatTir)
-  {
-    
-  }
+    this->onTir();
   else
-  {
-    
-  }
+    this->offTir();
+
+
+  this->etatTir = !this->etatTir;
 }
 
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Activer Tir
+void ProtonGun::onTir()
+{
+    if(!this->etat)
+      return;
+   
+    #ifdef PROTON_DEBUG
+      Serial.println(F("Tir ON"));
+    #endif
+
+    digitalWrite( PROTONGUN_PLASMA, HIGH );
+}
+
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//Arreter tir
+void ProtonGun::offTir()
+{
+    if(!this->etat)
+      return;
+    
+    #ifdef PROTON_DEBUG
+      Serial.println(F("Tir OFF"));
+    #endif
+
+   digitalWrite( PROTONGUN_PLASMA, LOW );
+}
