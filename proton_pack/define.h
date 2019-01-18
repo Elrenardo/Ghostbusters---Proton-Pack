@@ -124,4 +124,7 @@ VERSION : 1.00
 //FUMEE
 
 #define FUMEE_01 0
-#define FUMEE_02 0
+#define FUMEE_VENT 0
+
+#define FUMEE_MAX_ON 5000
+~define FUMEE_VENT_ON 2000

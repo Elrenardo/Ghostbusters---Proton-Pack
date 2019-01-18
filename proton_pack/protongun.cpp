@@ -133,26 +133,26 @@ void ProtonGun::nextBarrel()
     return;
 
   //Set Barrel LED
-  this->setLed( 1,  PROTONGUN_BARREL_01 );
-  this->setLed( 2,  PROTONGUN_BARREL_02 );
-  this->setLed( 3,  PROTONGUN_BARREL_03 );
-  this->setLed( 4,  PROTONGUN_BARREL_04 );
-  this->setLed( 5,  PROTONGUN_BARREL_05 );
-  this->setLed( 6,  PROTONGUN_BARREL_06 );
-  this->setLed( 7,  PROTONGUN_BARREL_07 );
-  this->setLed( 8,  PROTONGUN_BARREL_08 );
-  this->setLed( 9,  PROTONGUN_BARREL_09 );
-  this->setLed( 10, PROTONGUN_BARREL_10 );
-  this->setLed( 11, PROTONGUN_BARREL_11 );
-  this->setLed( 12, PROTONGUN_BARREL_12 );
-  this->setLed( 13, PROTONGUN_BARREL_13 );
-  this->setLed( 14, PROTONGUN_BARREL_14 );
-  this->setLed( 15, PROTONGUN_BARREL_15 );
-  this->setLed( 16, PROTONGUN_BARREL_16 );
-  this->setLed( 17, PROTONGUN_BARREL_17 );
-  this->setLed( 18, PROTONGUN_BARREL_18 );
-  this->setLed( 19, PROTONGUN_BARREL_19 );
-  this->setLed( 20, PROTONGUN_BARREL_20 );
+  this->setBarrelLed( 1,  PROTONGUN_BARREL_01 );
+  this->setBarrelLed( 2,  PROTONGUN_BARREL_02 );
+  this->setBarrelLed( 3,  PROTONGUN_BARREL_03 );
+  this->setBarrelLed( 4,  PROTONGUN_BARREL_04 );
+  this->setBarrelLed( 5,  PROTONGUN_BARREL_05 );
+  this->setBarrelLed( 6,  PROTONGUN_BARREL_06 );
+  this->setBarrelLed( 7,  PROTONGUN_BARREL_07 );
+  this->setBarrelLed( 8,  PROTONGUN_BARREL_08 );
+  this->setBarrelLed( 9,  PROTONGUN_BARREL_09 );
+  this->setBarrelLed( 10, PROTONGUN_BARREL_10 );
+  this->setBarrelLed( 11, PROTONGUN_BARREL_11 );
+  this->setBarrelLed( 12, PROTONGUN_BARREL_12 );
+  this->setBarrelLed( 13, PROTONGUN_BARREL_13 );
+  this->setBarrelLed( 14, PROTONGUN_BARREL_14 );
+  this->setBarrelLed( 15, PROTONGUN_BARREL_15 );
+  this->setBarrelLed( 16, PROTONGUN_BARREL_16 );
+  this->setBarrelLed( 17, PROTONGUN_BARREL_17 );
+  this->setBarrelLed( 18, PROTONGUN_BARREL_18 );
+  this->setBarrelLed( 19, PROTONGUN_BARREL_19 );
+  this->setBarrelLed( 20, PROTONGUN_BARREL_20 );
    
    this->barrel_compte++;
    if(this->barrel_compte >= PROTONGUN_BARREL_MAX)
@@ -166,7 +166,7 @@ void ProtonGun::nextBarrel()
 //-------------------------------------------------------
 //-------------------------------------------------------
 //Set Led Arduino
-void ProtonGun::setLed( unsigned char posi, int led )
+void ProtonGun::setBarrelLed( unsigned char posi, int led )
 {
   //Limite ignore
   if(posi < PROTONGUN_BARREL_MIN )
@@ -206,21 +206,19 @@ void ProtonGun::ventSwitch()
 {
   if(this->etatVent)
   {
-    this->etatVent = false;
-    digitalWrite( PROTONGUN_VENTLED, LOW );
-    
     #ifdef PROTON_DEBUG
       Serial.println(F("Vent OFF"));
     #endif
+    this->etatVent = false;
+    digitalWrite( PROTONGUN_VENTLED, LOW );
   }
   else
   {
-    this->etatVent = true;
-    digitalWrite( PROTONGUN_VENTLED, HIGH );
-
     #ifdef PROTON_DEBUG
       Serial.println(F("Vent ON"));
     #endif
+    this->etatVent = true;
+    digitalWrite( PROTONGUN_VENTLED, HIGH );
   }
 }
 
@@ -240,9 +238,6 @@ void ProtonGun::tirSwitch()
     this->onTir();
   else
     this->offTir();
-
-
-  this->etatTir = !this->etatTir;
 }
 
 //-------------------------------------------------------
@@ -259,6 +254,7 @@ void ProtonGun::onTir()
       Serial.println(F("Tir ON"));
     #endif
 
+    this->etatTir = true;
     digitalWrite( PROTONGUN_PLASMA, HIGH );
 }
 
@@ -276,5 +272,6 @@ void ProtonGun::offTir()
       Serial.println(F("Tir OFF"));
     #endif
 
+   this->etatTir = false;
    digitalWrite( PROTONGUN_PLASMA, LOW );
 }

@@ -24,8 +24,23 @@ class Fumee
    public:
     Fumee();
 
-    //todo
+    /*--- On ---*/
+    void on();
+
+    /*--- Off ---*/
+    void off();
+
+    /*--- Switch --*/
+    void fumeeSwitch();
+
+    /*--- Verif temps actif ----*/
+    void verifAllFrame();
     
    private:
+
+   //activate fumee
+   bool etat = false;
+   unsigned long start = 0;
+   unsigned long vent = 0;
     
 };

@@ -104,6 +104,8 @@ void loop()
 {
   //Update Task Manager
   myOS->update();
+  //Verification pour la sécurité de la fumée
+  Proton_fumee->verifAllFrame();
 }
 
 

@@ -52,7 +52,7 @@ class ProtonGun
     void offTir();
     
    private:
-    void setLed( unsigned char posi, int led );
+    void setBarrelLed( unsigned char posi, int led );
    
      //Activate
      bool etat = true;
