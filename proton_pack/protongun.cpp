@@ -39,10 +39,10 @@ ProtonGun::ProtonGun()
   pinMode( PROTONGUN_BARREL_14, OUTPUT );
   pinMode( PROTONGUN_BARREL_15, OUTPUT );
   pinMode( PROTONGUN_BARREL_16, OUTPUT );
-  pinMode( PROTONGUN_BARREL_17, OUTPUT );
+  /*pinMode( PROTONGUN_BARREL_17, OUTPUT );
   pinMode( PROTONGUN_BARREL_18, OUTPUT );
   pinMode( PROTONGUN_BARREL_19, OUTPUT );
-  pinMode( PROTONGUN_BARREL_20, OUTPUT );
+  pinMode( PROTONGUN_BARREL_20, OUTPUT );*/
 
   
   //Init Vent
@@ -149,10 +149,10 @@ void ProtonGun::nextBarrel()
   this->setBarrelLed( 14, PROTONGUN_BARREL_14 );
   this->setBarrelLed( 15, PROTONGUN_BARREL_15 );
   this->setBarrelLed( 16, PROTONGUN_BARREL_16 );
-  this->setBarrelLed( 17, PROTONGUN_BARREL_17 );
+  /*this->setBarrelLed( 17, PROTONGUN_BARREL_17 );
   this->setBarrelLed( 18, PROTONGUN_BARREL_18 );
   this->setBarrelLed( 19, PROTONGUN_BARREL_19 );
-  this->setBarrelLed( 20, PROTONGUN_BARREL_20 );
+  this->setBarrelLed( 20, PROTONGUN_BARREL_20 );*/
    
    this->barrel_compte++;
    if(this->barrel_compte >= PROTONGUN_BARREL_MAX)
