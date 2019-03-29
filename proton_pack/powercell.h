@@ -34,16 +34,16 @@ class PowerCell
     void activeSwitch();
 
     /*--- Update Affichage ( callback appelé lorsque le power cell ce vide ) --- */
-    void next( void (*callback)() );
+    void next( void (*callback)(), boolean tir );
     
    private:
     //Active
-    bool etat = true;
+    bool etat = false;
     //Compte 
     unsigned char compte = 0;
 
     //SetLed
-    void setLed( unsigned char posi, int led );
+    void setLed( unsigned char posi, int led, boolean tir );
     //Reset compte
     bool addCompte();
     

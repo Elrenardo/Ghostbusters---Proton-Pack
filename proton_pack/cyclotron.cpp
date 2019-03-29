@@ -7,11 +7,6 @@
 //Constructeur
 Cyclotron::Cyclotron()
 {
-  //Activation
-  if(digitalRead( PROTONGUN_ACTIVATE_PACK_SWITCH ))
-    this->on();
-  else
-   this->off();
 }
 
 
@@ -40,6 +35,12 @@ void Cyclotron::off()
 {
   this->etat = false;
   this->resetLight();
+
+  //Ne pas mettre dans resetLight, ca cause un souci !
+  analogWrite( CYCLOTRON_1 ,0);
+  analogWrite( CYCLOTRON_2 ,0);
+  analogWrite( CYCLOTRON_3 ,0);
+  analogWrite( CYCLOTRON_4 ,0);
 
   #ifdef PROTON_DEBUG
     Serial.println(F("Cyclotron OFF"));
@@ -75,37 +76,37 @@ void Cyclotron::next()
   switch(this->compte)
   {
     case 0:
-      digitalWrite( CYCLOTRON_1 ,HIGH);
-      digitalWrite( CYCLOTRON_2 ,LOW);
-      digitalWrite( CYCLOTRON_3 ,LOW);
-      digitalWrite( CYCLOTRON_4 ,LOW);
+      analogWrite( CYCLOTRON_1 ,1024);
+      analogWrite( CYCLOTRON_2 ,0);
+      analogWrite( CYCLOTRON_3 ,0);
+      analogWrite( CYCLOTRON_4 ,0);
     break;
     
     case 1:
-      digitalWrite( CYCLOTRON_1 ,LOW);
-      digitalWrite( CYCLOTRON_2 ,HIGH);
-      digitalWrite( CYCLOTRON_3 ,LOW);
-      digitalWrite( CYCLOTRON_4 ,LOW);
+      analogWrite( CYCLOTRON_1 ,0);
+      analogWrite( CYCLOTRON_2 ,1024);
+      analogWrite( CYCLOTRON_3 ,0);
+      analogWrite( CYCLOTRON_4 ,0);
     break;
     
     case 2:
-      digitalWrite( CYCLOTRON_1 ,LOW);
-      digitalWrite( CYCLOTRON_2 ,LOW);
-      digitalWrite( CYCLOTRON_3 ,HIGH);
-      digitalWrite( CYCLOTRON_4 ,LOW);
+      analogWrite( CYCLOTRON_1 ,0);
+      analogWrite( CYCLOTRON_2 ,0);
+      analogWrite( CYCLOTRON_3 ,1024);
+      analogWrite( CYCLOTRON_4 ,0);
     break;
     
     case 3:
-      digitalWrite( CYCLOTRON_1 ,LOW);
-      digitalWrite( CYCLOTRON_2 ,LOW);
-      digitalWrite( CYCLOTRON_3 ,LOW);
-      digitalWrite( CYCLOTRON_4 ,HIGH);
+      analogWrite( CYCLOTRON_1 ,0);
+      analogWrite( CYCLOTRON_2 ,0);
+      analogWrite( CYCLOTRON_3 ,0);
+      analogWrite( CYCLOTRON_4 ,1024);
     break;
   }
 
-  #ifdef PROTON_DEBUG
+  /*#ifdef PROTON_DEBUG
     Serial.println("Cyclotron light: "+this->compte);
-  #endif
+  #endif*/
 
   //incrémente
   this->compte++;
@@ -126,6 +127,3 @@ void Cyclotron::resetLight()
 {
   this->compte = 0;
 }
-
-
-

@@ -25,6 +25,10 @@ class Audio
 {
   public:
     Audio();
+    void build();
+
+    /*--- Switch le pack de proton --- */
+    void SwitchPack();
 
     /*--- Activer le pack de proton --- */
     void OnPack();
@@ -32,21 +36,36 @@ class Audio
     /*--- Desactiver le pack de proton --- */
     void OffPack();
 
-    /*--- Activer le tir --- */
+   /*--- Switch Gun --- */
+    void SwitchGun();
+
+    /*--- Activer le gun --- */
     void OnGun();
     
-    /*--- Desactiver le tir --- */
+    /*--- Desactiver le gun --- */
     void OffGun();
 
-    /*--- Gun Switch ---*/
-    void GunSwitch();
+    /*--- Auto tir --- */
+    boolean AutoTir();
 
-    /*--- Fumee vent ---*/
-    void FumeeVent();
+
+    /*--- Switch vent ---*/
+    boolean SwitchVent();
+
+   /*--- On vent ---*/
+    void OnVent();
+
+    /*--- Off vent ---*/
+    void OffVent();
 
     
   private:
     SoftwareSerial *mySoftwareSerial; // RX, TX port
     DFRobotDFPlayerMini *myDFPlayer;//Carte DFplayerMini
+
+    boolean pack = false;
+    boolean gun  = false;
+    boolean vent = false;
+    boolean tir  = false;
   
 };

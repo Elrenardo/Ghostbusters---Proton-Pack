@@ -42,9 +42,8 @@ class Cyclotron
    private:
    
     //Activer ou pas
-    boolean etat; // 0=off, 1=on
+    boolean etat = false; // 0=off, 1=on
     
     //compter les leds
     unsigned char compte;// 0-3
 };
-
