@@ -97,10 +97,7 @@ void setup()
   if( digitalRead(PROTONGUN_ACTIVATE_GUN_SWITCH))
     eventActiveGun();
   if( digitalRead(PROTONGUN_INTENSITY_SWITCH))
-  {
-    delay(1000);
     eventActiveIntensify();
-  }
   if( digitalRead(PROTONGUN_ACTIVATE_BUTTON))
     eventActiveTir();
     
